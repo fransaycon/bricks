@@ -1,0 +1,9 @@
+{
+  "name": "simple-blog",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@franreysaycon/bricks": "1.0.0"
+  }
+}
