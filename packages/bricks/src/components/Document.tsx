@@ -13,7 +13,7 @@ interface DocumentContent {
 interface DocumentProps {
     content: DocumentContent;
     jsPath: string;
-    cssPath: string;
+    cssPath?: string;
 }
 
 const Document = ({ content, jsPath, cssPath }: DocumentProps): ReactElement => (
