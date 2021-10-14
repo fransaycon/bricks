@@ -2,8 +2,8 @@
   "exclude": ["node_modules"],
   "include": ["src", "types"],
   "compilerOptions": {
-    "module": "ESNext",
-    "lib": ["DOM", "ESNext"],
+    "module": "esnext",
+    "lib": ["dom", "esnext"],
     "importHelpers": true,
     "declaration": true,
     "sourceMap": true,
@@ -16,6 +16,6 @@
     "moduleResolution": "node",
     "jsx": "react",
     "esModuleInterop": true,
-    "target": "ES2017"
-  }
+    "target": "ES2017",
+  },
 }

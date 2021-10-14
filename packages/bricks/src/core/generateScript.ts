@@ -1,23 +1,18 @@
-import path from "path"
-import fs from "fs-extra"
 import { ARTIFACT_JS_PATH, FINAL_JS_PATH } from "./constants"
-import esbuild from "esbuild"
 
 const generateScript =  async (pageDataFileName: string, buildDir: string): Promise<string> => {
+    const fs = await import("fs-extra")
+    const path = await import("path")
+    const esbuild = await import("esbuild")
 
     const artifactJSPath = path.join(buildDir, ARTIFACT_JS_PATH)
     await fs.ensureDir(artifactJSPath)
 
-    const jsScript = `
-        import React from "react";
-        import ReactDOM from "react-dom";
-        import pageData from "../pages_data/${pageDataFileName}";
-        import { App, DOCUMENT_ID } from "bricks";
+    const jsScript = `import pageData from "../pages_data/${pageDataFileName}";
+    import ReactDOMServer from "react-dom";
+    import React from "react";
 
-        ReactDOM.hydrate(
-            <App content={pageData.markdownContent} />,
-            DOCUMENT_ID
-        )
+    ReactDOMServer.hydrate(<p>Hello World</p>, document.getElementById("bricks__container"))
     `
 
     const fileName = pageDataFileName.split(".")[0]
@@ -31,17 +26,14 @@ const generateScript =  async (pageDataFileName: string, buildDir: string): Prom
         entryPoints: [
             entryPoint,
         ],
-        outfile: `${builtJSDir}/${fileName}.js`,
         bundle: true,
-        minify: true,
+        outdir: `${builtJSDir}`,
+        minify: false,
         sourcemap: true,
-        platform: 'node',
-        external: [
-          "react-markdown",
-          "react",
-          "react-dom",
-          "bricks",
-        ],
+        format: "cjs",
+        platform: 'browser',
+        external: ["@franreysaycon/bricks"],
+        target: ['es2017'],
     });
 
     return fileName

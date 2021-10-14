@@ -1,5 +1,3 @@
-import fs from "fs-extra"
-import path from "path"
 import { FINAL_BUILD_PATH, PAGES_PATH } from "./constants";
 import generateScript from "./generateScript";
 import generateHtml from "./generateHtml";
@@ -10,8 +8,11 @@ interface BricksConfiguration {
 }
 
 const createBuild = async (config?: BricksConfiguration): Promise<void> => {
+    const fs = await import("fs-extra")
+    const path = await import("path")
+
     try {
-        const filePaths = fs.readdirSync(path.join(process.cwd(), PAGES_PATH))
+        const filePaths = await fs.readdir(path.join(process.cwd(), PAGES_PATH))
         const finalBuildDir = path.join(process.cwd(), config?.buildPath ?? FINAL_BUILD_PATH)
         await fs.remove(finalBuildDir)
         await fs.ensureDir(finalBuildDir)

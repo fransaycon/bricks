@@ -7,18 +7,20 @@
   "scripts": {
     "build": "node buildCore.js"
   },
-  "devDependencies": {
-    "@types/fs-extra": "^9.0.13",
-    "@types/react": "^17.0.27",
-    "@types/react-dom": "^17.0.9",
+  "dependencies": {
     "esbuild": "^0.13.4",
     "fs-extra": "^10.0.0",
-    "gray-matter": "^4.0.3",
-    "typescript": "^4.4.3"
+    "gray-matter": "^4.0.3"
   },
-  "dependencies": {
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/react": "^17.0.29",
+    "@types/react-dom": "^17.0.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-markdown": "^7.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
