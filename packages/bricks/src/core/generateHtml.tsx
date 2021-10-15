@@ -1,5 +1,5 @@
 import React from "react"
-import ReactDOMServer from "react-dom/server"
+import * as ReactDOMServer from "react-dom/server"
 import Document from "../components/Document"
 import App from "../components/App"
 import { ARTIFACT_PAGES_DATA_PATH } from "./constants"

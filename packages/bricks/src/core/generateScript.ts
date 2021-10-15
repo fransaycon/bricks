@@ -1,3 +1,4 @@
+import { DOCUMENT_ID } from ".."
 import { ARTIFACT_JS_PATH, FINAL_JS_PATH } from "./constants"
 
 const generateScript =  async (pageDataFileName: string, buildDir: string): Promise<string> => {
@@ -8,12 +9,13 @@ const generateScript =  async (pageDataFileName: string, buildDir: string): Prom
     const artifactJSPath = path.join(buildDir, ARTIFACT_JS_PATH)
     await fs.ensureDir(artifactJSPath)
 
-    const jsScript = `import pageData from "../pages_data/${pageDataFileName}";
-    import ReactDOMServer from "react-dom";
-    import React from "react";
+    const jsScript = `
+        import pageData from "../pages_data/${pageDataFileName}";
+        import ReactDOMServer from "react-dom";
+        import React from "react";
 
-    ReactDOMServer.hydrate(<p>Hello World</p>, document.getElementById("bricks__container"))
-    `
+        ReactDOMServer.hydrate(<p>Hello World</p>, document.getElementById("${DOCUMENT_ID}"))
+    `.trim()
 
     const fileName = pageDataFileName.split(".")[0]
     const entryPoint = `${artifactJSPath}/${fileName}.jsx`
@@ -28,11 +30,12 @@ const generateScript =  async (pageDataFileName: string, buildDir: string): Prom
         ],
         bundle: true,
         outdir: `${builtJSDir}`,
-        minify: false,
-        sourcemap: true,
+        minify: true,
+        sourcemap: false,
         splitting: true,
         format: "esm",
         platform: 'browser',
+        external: [...await (await import("module")).builtinModules, "stream"],
         target: ['es2017'],
     });
 
