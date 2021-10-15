@@ -1,4 +1,3 @@
-import { DOCUMENT_ID } from ".."
 import { ARTIFACT_JS_PATH, FINAL_JS_PATH } from "./constants"
 
 const generateScript =  async (pageDataFileName: string, buildDir: string): Promise<string> => {
@@ -13,8 +12,9 @@ const generateScript =  async (pageDataFileName: string, buildDir: string): Prom
         import pageData from "../pages_data/${pageDataFileName}";
         import ReactDOMServer from "react-dom";
         import React from "react";
+        import { App, DOCUMENT_ID } from "@franreysaycon/bricks";
 
-        ReactDOMServer.hydrate(<p>Hello World</p>, document.getElementById("${DOCUMENT_ID}"))
+        ReactDOMServer.hydrate(<App content={pageData.markdownContent} />, document.getElementById(DOCUMENT_ID))
     `.trim()
 
     const fileName = pageDataFileName.split(".")[0]

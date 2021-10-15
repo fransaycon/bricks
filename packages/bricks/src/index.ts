@@ -5,3 +5,7 @@ export {
 export {
     DOCUMENT_ID
 } from "./core/constants"
+
+export {
+    default as App
+} from "./components/App"
