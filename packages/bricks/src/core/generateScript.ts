@@ -30,9 +30,9 @@ const generateScript =  async (pageDataFileName: string, buildDir: string): Prom
         outdir: `${builtJSDir}`,
         minify: false,
         sourcemap: true,
-        format: "cjs",
+        splitting: true,
+        format: "esm",
         platform: 'browser',
-        external: ["@franreysaycon/bricks"],
         target: ['es2017'],
     });
 

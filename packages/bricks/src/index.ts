@@ -5,7 +5,3 @@ export {
 export {
     DOCUMENT_ID
 } from "./core/constants"
-
-export { 
-    default as hydrate
-} from "./core/hydrate"

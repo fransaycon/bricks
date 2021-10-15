@@ -36,7 +36,7 @@ const Document = ({ content, jsPath, cssPath }: DocumentProps): ReactElement => 
         </head>
         <body>
             <div id={DOCUMENT_ID} dangerouslySetInnerHTML={{ __html: content.html }} />
-            <script src={jsPath} />
+            <script type="module" src={jsPath} />
         </body>
     </html>
 )
