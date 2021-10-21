@@ -61,14 +61,14 @@ import path from "path"
 fs.writeFile(path.join(process.cwd(), FINAL_BUILD_PATH, "${fileName}.html"), renderHtml(App, "js/${fileName}.js"))
 console.log("Generated ${fileName}.html")
 `
-    await fs.writeFile(`${artifactJSPath}/${appName}_render.jsx`, htmlScript)
+    await fs.writeFile(`${artifactJSPath}/${fileName}_render.jsx`, htmlScript)
 
     esbuild.buildSync({
         entryPoints: [
-            `${artifactJSPath}/${appName}_render.jsx`,
+            `${artifactJSPath}/${fileName}_render.jsx`,
         ],
         bundle: true,
-        outdir: `${builtJSDir}`,
+        outdir: `${builtJSDir}/scripts`,
         minify: true,
         sourcemap: false,
         format: "cjs",
@@ -84,7 +84,7 @@ console.log("Generated ${fileName}.html")
         target: ['es2017'],
     });
 
-    return fileName
+    return `${fileName}_render`
 }
 
 export default generateScript

@@ -2519,6 +2519,11 @@ chardet@^0.7.0:
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
+child-process-async@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/child-process-async/-/child-process-async-1.0.1.tgz#ee3f0da64421ce6bcd79119003893c53810c4723"
+  integrity sha512-5azrGe+ED5oBFgspraK+A5Uqg1RQ7vsh7auoxvOWsRF3KxbiPLd9zX/DAq2zD5WV+Z4xyMbWSOHkXWy51EsK9g==
+
 chokidar@^2.0.4:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.8.tgz#804b3a7b6a99358c3c5c61e71d8728f041cff917"

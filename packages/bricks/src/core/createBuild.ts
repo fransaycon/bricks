@@ -1,6 +1,7 @@
 import { ARTIFACT_COMPONENTS_PATH, CUSTOM_COMPONENTS_PATH, FINAL_BUILD_PATH, PAGES_PATH } from "./constants";
 import generateScript from "./generateScript";
 import processMarkdown from "./processMarkdown";
+import runRenderScript from "./runRenderScript";
 
 interface BricksConfiguration {
     buildPath: string;
@@ -24,7 +25,8 @@ const createBuild = async (config?: BricksConfiguration): Promise<void> => {
 
         filePaths.forEach(async fp => {
             const { pageDataFile, component } = await processMarkdown(path.join(process.cwd(), PAGES_PATH, fp), finalBuildDir)
-            await generateScript(pageDataFile, component, finalBuildDir)
+            const rsFileName = await generateScript(pageDataFile, component, finalBuildDir)
+            await runRenderScript(rsFileName)
         })
     }
     catch(error){

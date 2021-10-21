@@ -9,6 +9,7 @@
     "build": "rollup -c"
   },
   "dependencies": {
+    "child-process-async": "^1.0.1",
     "esbuild": "^0.13.4",
     "fs-extra": "^10.0.0",
     "gray-matter": "^4.0.3"
