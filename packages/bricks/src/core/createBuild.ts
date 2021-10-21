@@ -23,11 +23,11 @@ const createBuild = async (config?: BricksConfiguration): Promise<void> => {
             await fs.copy(path.join(process.cwd(), CUSTOM_COMPONENTS_PATH, cp), path.join(finalBuildDir, ARTIFACT_COMPONENTS_PATH, cp))
         })
 
-        filePaths.forEach(async fp => {
+        Promise.all(filePaths.map(async (fp) => {
             const { pageDataFile, component } = await processMarkdown(path.join(process.cwd(), PAGES_PATH, fp), finalBuildDir)
             const rsFileName = await generateScript(pageDataFile, component, finalBuildDir)
             await runRenderScript(rsFileName)
-        })
+        }))
     }
     catch(error){
         console.error(error)
