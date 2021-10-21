@@ -1,6 +1,5 @@
-import { FINAL_BUILD_PATH, PAGES_PATH } from "./constants";
+import { ARTIFACT_COMPONENTS_PATH, CUSTOM_COMPONENTS_PATH, FINAL_BUILD_PATH, PAGES_PATH } from "./constants";
 import generateScript from "./generateScript";
-import generateHtml from "./generateHtml";
 import processMarkdown from "./processMarkdown";
 
 interface BricksConfiguration {
@@ -17,12 +16,15 @@ const createBuild = async (config?: BricksConfiguration): Promise<void> => {
         await fs.remove(finalBuildDir)
         await fs.ensureDir(finalBuildDir)
 
+        // Copy Custom Stuff
+        const componentsPaths = await fs.readdir(path.join(process.cwd(), CUSTOM_COMPONENTS_PATH))
+        componentsPaths.forEach(async cp => {
+            await fs.copy(path.join(process.cwd(), CUSTOM_COMPONENTS_PATH, cp), path.join(finalBuildDir, ARTIFACT_COMPONENTS_PATH, cp))
+        })
+
         filePaths.forEach(async fp => {
-            const pageDataFileName = await processMarkdown(path.join(process.cwd(), PAGES_PATH, fp), finalBuildDir)
-            const jsFileName = await generateScript(pageDataFileName, finalBuildDir)
-            const html = await generateHtml(pageDataFileName, jsFileName, finalBuildDir)
-            const fileName = fp.split(".")[0]
-            fs.writeFileSync(path.join(finalBuildDir, `${fileName}.html`), `<!DOCTYPE html>${html}`)
+            const { pageDataFile, component } = await processMarkdown(path.join(process.cwd(), PAGES_PATH, fp), finalBuildDir)
+            await generateScript(pageDataFile, component, finalBuildDir)
         })
     }
     catch(error){

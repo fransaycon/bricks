@@ -20,7 +20,7 @@ export default {
             file: packageJson.module,
             format: 'esm',
             sourcemap: true
-        }
+        } 
     ],
     plugins: [
         autoExternal({
@@ -34,7 +34,6 @@ export default {
         globals(),
         typescript({ tsconfig: './tsconfig.json' }),
         terser(),
-        
     ],
     inlineDynamicImports: true,
 }

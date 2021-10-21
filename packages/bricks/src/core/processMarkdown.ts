@@ -1,6 +1,11 @@
 import { ARTIFACT_PAGES_DATA_PATH } from "./constants"
 
-const processMarkdown = async (markdownPath: string, buildDir: string): Promise<string> => {
+interface ProcessedMarkdownT {
+    pageDataFile: string;
+    component: string;
+}
+
+const processMarkdown = async (markdownPath: string, buildDir: string): Promise<ProcessedMarkdownT> => {
     const fs = await import("fs-extra")
     const path = await import("path")
     const matter = await import("gray-matter")
@@ -15,11 +20,14 @@ const processMarkdown = async (markdownPath: string, buildDir: string): Promise<
     const artifactPath = `${artifactMarkdownPath}/${fileName}.json`
 
     await fs.writeJSON(artifactPath, {
-        meta: data.meta,
+        matterData: data,
         markdownContent: content,
     })
 
-    return `${fileName}.json`
+    return {
+        pageDataFile: `${fileName}.json`,
+        component: data.component,
+    }
 }
 
 export default processMarkdown

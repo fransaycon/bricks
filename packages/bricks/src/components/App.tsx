@@ -1,20 +1,16 @@
-import React, { ReactElement, useEffect } from "react"
-import ReactMarkdown from "react-markdown"
+import React, { ReactElement } from "react"
+import BricksProvider, { PageData } from "./BricksProvider"
 
 interface AppProps {
-    content: string;
+    Component: React.FC;
+    pageData: PageData;
 }
 
-const App = ({ content }: AppProps): ReactElement => {
-    
-    useEffect(() => {
-        alert("Hello World")
-    }, [])
-
+const App = ({ Component, pageData }: AppProps): ReactElement => {
     return (
-        <ReactMarkdown>
-            {content}
-        </ReactMarkdown>
+        <BricksProvider pageData={pageData}>
+            <Component />
+        </BricksProvider>
     )
 }
 
