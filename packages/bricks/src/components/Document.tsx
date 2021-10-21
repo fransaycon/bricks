@@ -11,7 +11,7 @@ interface DocumentContextT {
     head: ReactNode[];
     html: string;
     jsPath: string;
-    cssPath?: string
+    css: ReactNode[];
 }
 
 export const HeadContext = createContext<HeadContextT | null>(null)
@@ -25,20 +25,8 @@ const Document = (): ReactElement => {
             <head>
                 <meta charSet="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                { document?.cssPath && 
-                    <>
-                        <link
-                            rel="preload"
-                            as="style"
-                            href={document?.cssPath}
-                        />
-                        <link
-                            rel="stylesheet"
-                            href={document?.cssPath}
-                        />
-                    </>
-                }
                 { document?.head }
+                { document?.css }
             </head>
             <body>
                 <div id={DOCUMENT_ID} dangerouslySetInnerHTML={{ __html: document?.html ?? "" }} />

@@ -1,7 +1,7 @@
 ---
 meta:
-    title: Personal Website of Franrey Saycon
+    title: Another Page
 component: Homepage
 ---
 
-Hello World
+Another Page

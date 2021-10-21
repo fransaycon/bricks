@@ -1,23 +1,44 @@
-import React, { useContext, useEffect } from "react"
-import ReactMarkdown from "react-markdown"
-import { BricksContext, Head } from "@franreysaycon/bricks"
+import React, { useContext, useEffect, useState } from "react"
+import { BricksContext, Head, styled } from "@franreysaycon/bricks"
+
+const Container = styled.div`
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    width: 100vw;
+    background-color: #E2E2E2;
+    flex-direction: column;
+
+    & > * + * {
+        margin-top: 2rem;
+    }
+`
+
+const HiddenContainer = styled.div`
+    width: 300px;
+    height: 100px;
+    background-color: #235643;
+`
 
 const Homepage = () => {
     const bricks = useContext(BricksContext)
+    const [boxes, addBox] = useState([])
 
     useEffect(() => {
-        alert("Im working")
+        const interval = setInterval(() => addBox(b => [...b, 1]), 2000)
+        return () => {
+            clearInterval(interval)
+        }
     }, [])
 
     return (
-        <>
+        <Container>
             <Head>
                 <title>{bricks?.matterData.meta.title}</title>
             </Head>
-            <ReactMarkdown>
-                {bricks?.markdownContent}
-            </ReactMarkdown>
-        </>
+            {boxes.map((_, i) => <HiddenContainer key={i} /> )}
+        </Container>
     )
 }
 export default Homepage

@@ -23,3 +23,7 @@ export {
 export {
     default as renderHtml
 } from "./core/renderHtml"
+
+export {
+    default as styled
+} from "styled-components"

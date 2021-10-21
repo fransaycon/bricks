@@ -79,7 +79,8 @@ console.log("Generated ${fileName}.html")
             "path",
             "react-dom",
             "react",
-            "esbuild"
+            "esbuild",
+            "@franreysaycon/bricks"
         ],
         target: ['es2017'],
     });

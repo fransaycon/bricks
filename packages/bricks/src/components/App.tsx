@@ -1,5 +1,6 @@
 import React, { ReactElement } from "react"
 import BricksProvider, { PageData } from "./BricksProvider"
+import Reset from "./Reset"
 
 interface AppProps {
     Component: React.FC;
@@ -9,6 +10,7 @@ interface AppProps {
 const App = ({ Component, pageData }: AppProps): ReactElement => {
     return (
         <BricksProvider pageData={pageData}>
+            <Reset />
             <Component />
         </BricksProvider>
     )
