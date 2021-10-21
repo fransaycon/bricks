@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "build": "node build.js"
+  },
   "dependencies": {
     "@franreysaycon/bricks": "1.0.0",
-    "live-server": "^1.2.1"
+    "live-server": "^1.2.1",
+    "react": "^17.0.2",
+    "react-markdown": "^7.0.1"
   }
 }
