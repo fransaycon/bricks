@@ -1,7 +1,10 @@
 import { ARTIFACT_COMPONENTS_PATH, CUSTOM_COMPONENTS_PATH, FINAL_BUILD_PATH, PAGES_PATH } from "./constants";
-import generateScript from "./generateScript";
+import generateRenderScript from "./generateRenderScript";
+import generateJSBundle from "./generateJSBundle";
 import processMarkdown from "./processMarkdown";
-import runRenderScript from "./runRenderScript";
+import runRenderScripts from "./runRenderScripts";
+import buildJSBundles from "./buildJSBundles";
+import buildRenderScripts from "./buildRenderScripts";
 
 interface BricksConfiguration {
     buildPath: string;
@@ -23,11 +26,34 @@ const createBuild = async (config?: BricksConfiguration): Promise<void> => {
             await fs.copy(path.join(process.cwd(), CUSTOM_COMPONENTS_PATH, cp), path.join(finalBuildDir, ARTIFACT_COMPONENTS_PATH, cp))
         })
 
-        Promise.all(filePaths.map(async (fp) => {
-            const { pageDataFile, component } = await processMarkdown(path.join(process.cwd(), PAGES_PATH, fp), finalBuildDir)
-            const rsFileName = await generateScript(pageDataFile, component, finalBuildDir)
-            await runRenderScript(rsFileName)
+        let markdownArr = await Promise.all(filePaths.map(async fp => {
+            return await processMarkdown(
+                path.join(process.cwd(), PAGES_PATH, fp),
+                finalBuildDir
+            )
         }))
+
+        let jsBundles = await Promise.all(markdownArr.map(async ({ pageDataFile, component }) => {
+            return await generateJSBundle(
+                pageDataFile,
+                component,
+                finalBuildDir,
+            )
+        }))
+
+        let manifest = await buildJSBundles(jsBundles, finalBuildDir)
+
+        let renderScripts = await Promise.all(markdownArr.map(async ({ pageDataFile, component }) => {
+            return await generateRenderScript(
+                pageDataFile,
+                component,
+                finalBuildDir,
+                manifest
+            )
+        }))
+
+        await buildRenderScripts(renderScripts, finalBuildDir)
+        await runRenderScripts(finalBuildDir)
     }
     catch(error){
         console.error(error)

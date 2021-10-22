@@ -11,6 +11,7 @@
   "dependencies": {
     "child-process-async": "^1.0.1",
     "esbuild": "^0.13.4",
+    "esbuild-plugin-manifest": "^0.4.6",
     "fs-extra": "^10.0.0",
     "gray-matter": "^4.0.3"
   },
@@ -44,6 +45,7 @@
   },
   "peerDependencies": {
     "esbuild": "^0.13.4",
+    "esbuild-plugin-manifest": "^0.4.6",
     "fs-extra": "^10.0.0",
     "gray-matter": "^4.0.3",
     "react": "^17.0.2",

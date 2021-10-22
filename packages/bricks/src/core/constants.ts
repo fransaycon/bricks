@@ -14,3 +14,5 @@ export const ARTIFACT_PAGES_DATA_PATH = `${ARTIFACT_PATH}/pages_data`
 
 export const CUSTOM_COMPONENTS_PATH = "bricks"
 export const FINAL_RENDER_SCRIPTS = "js/scripts"
+
+export const MANIFEST_KEY = `${FINAL_BUILD_PATH}/${ARTIFACT_JS_PATH}`
