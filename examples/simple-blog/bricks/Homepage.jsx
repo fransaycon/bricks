@@ -18,7 +18,7 @@ const Container = styled.div`
 const HiddenContainer = styled.div`
     width: 300px;
     height: 100px;
-    background-color: #235643;
+    background-color: blue;
 `
 
 const Homepage = () => {
@@ -41,4 +41,5 @@ const Homepage = () => {
         </Container>
     )
 }
+
 export default Homepage

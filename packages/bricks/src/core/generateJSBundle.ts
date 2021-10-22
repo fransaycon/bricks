@@ -8,12 +8,11 @@ const generateScript =  async (pageDataFileName: string, appName: string, buildD
     await fs.ensureDir(artifactJSPath)
 
     const appScript = `
-import pageData from "../pages_data/${pageDataFileName}";
 import React from "react"
 import { App } from "@franreysaycon/bricks";
 import Component from "./components/${appName}";
 
-export default () => (
+export default ({ pageData }) => (
     <App Component={Component} pageData={pageData} />
 );
 `
@@ -25,8 +24,9 @@ import ReactDOM from "react-dom";
 import React from "react";
 import { DOCUMENT_ID } from "@franreysaycon/bricks";
 import App from "./${appName}_app"
+import pageData from "../pages_data/${pageDataFileName}";
 
-ReactDOM.hydrate(<App />, document.getElementById(DOCUMENT_ID));
+ReactDOM.hydrate(<App pageData={pageData} />, document.getElementById(DOCUMENT_ID));
 `
 
     const fileName = pageDataFileName.split(".")[0]
