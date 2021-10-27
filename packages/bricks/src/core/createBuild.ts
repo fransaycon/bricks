@@ -1,4 +1,4 @@
-import { ARTIFACT_COMPONENTS_PATH, CUSTOM_COMPONENTS_PATH, FINAL_BUILD_PATH, PAGES_PATH } from "./constants";
+import { ARTIFACT_COMPONENTS_PATH, ARTIFACT_PAGES_DATA_PATH, CUSTOM_COMPONENTS_PATH, FINAL_BUILD_PATH, PAGES_PATH } from "./constants";
 import generateRenderScript from "./generateRenderScript";
 import generateJSBundle from "./generateJSBundle";
 import processMarkdown from "./processMarkdown";
@@ -20,7 +20,11 @@ const createBuild = async (config?: BricksConfiguration): Promise<void> => {
         await fs.remove(finalBuildDir)
         await fs.ensureDir(finalBuildDir)
 
-        // Copy Custom Stuff
+        const routeJsonPath = path.join(finalBuildDir, ARTIFACT_PAGES_DATA_PATH)
+        await fs.ensureDir(routeJsonPath)
+        await fs.writeJSON(path.join(routeJsonPath, "routes.json"), filePaths)
+
+        // Copy Custom Stuff # TODO: optimize and remove copying
         const componentsPaths = await fs.readdir(path.join(process.cwd(), CUSTOM_COMPONENTS_PATH))
         componentsPaths.forEach(async cp => {
             await fs.copy(path.join(process.cwd(), CUSTOM_COMPONENTS_PATH, cp), path.join(finalBuildDir, ARTIFACT_COMPONENTS_PATH, cp))

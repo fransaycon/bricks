@@ -3,7 +3,7 @@ import ReactDOMServer from "react-dom/server"
 import Document, { DocumentContext, HeadContext } from "../components/Document"
 import { ServerStyleSheet, StyleSheetManager } from "styled-components"
 
-const renderHtml = (Component: React.FC<any>, jsPath: string, pageData: Record<string, string>): string => {
+const renderHtml = (Component: React.FC<any>, jsPath: string, pageData: Record<string, string>, routesData: string[]): string => {
     const head: ReactNode[] = []
 
     const sheet = new ServerStyleSheet()
@@ -11,7 +11,7 @@ const renderHtml = (Component: React.FC<any>, jsPath: string, pageData: Record<s
         const appHtml =  ReactDOMServer.renderToString(
             <HeadContext.Provider value={head}>
                 <StyleSheetManager sheet={sheet.instance}>
-                    <Component pageData={pageData} />
+                    <Component pageData={pageData} routesData={routesData} />
                 </StyleSheetManager>
             </HeadContext.Provider>
         )

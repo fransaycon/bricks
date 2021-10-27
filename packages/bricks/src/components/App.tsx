@@ -5,11 +5,12 @@ import Reset from "./Reset"
 interface AppProps {
     Component: React.FC;
     pageData: PageData;
+    routesData: string[];
 }
 
-const App = ({ Component, pageData }: AppProps): ReactElement => {
+const App = ({ Component, pageData, routesData }: AppProps): ReactElement => {
     return (
-        <BricksProvider pageData={pageData}>
+        <BricksProvider pageData={pageData} routesData={routesData}>
             <Reset />
             <Component />
         </BricksProvider>

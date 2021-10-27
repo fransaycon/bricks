@@ -12,7 +12,7 @@ import React from "react"
 import { App } from "@franreysaycon/bricks";
 import Component from "./components/${appName}";
 
-export default ({ pageData }) => (
+export default ({ pageData, routesData }) => (
     <App Component={Component} pageData={pageData} />
 );
 `

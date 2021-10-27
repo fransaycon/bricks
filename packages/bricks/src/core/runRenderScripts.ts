@@ -8,7 +8,8 @@ const runRenderScripts = async (buildDir: string): Promise<void> => {
 
     const scriptsDir = path.join(buildDir, FINAL_RENDER_SCRIPTS)
 
-    const scripts = await fs.readdir(scriptsDir)
+    let scripts = await fs.readdir(scriptsDir)
+    scripts = scripts.filter(s => s.split(".")[1] === "js")
 
     Promise.all(scripts.map(async script => {
         await fork(path.join(scriptsDir, script))

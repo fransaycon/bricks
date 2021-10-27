@@ -17,11 +17,12 @@ const buildJSBundles = async (jsScripts: string[], buildDir: string): Promise<Re
         splitting: true,
         format: "esm",
         platform: 'browser',
-        external: [...await (await import("module")).builtinModules],
+        external: [...await (await import("module")).builtinModules, path.resolve(path.join(process.cwd(), "bricks", "images", "*"))],
         plugins: [createManifest.default({
             shortNames: "output",
         })],
         target: ['es2017'],
+        loader: {".png": "file"}
     });
     const manifest = await fs.readJSON(path.join(builtJSDir, "manifest.json"))
 

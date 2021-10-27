@@ -24,6 +24,7 @@ const buildRenderScripts = async (jsRenderScripts: string[], buildDir: string): 
             "@franreysaycon/bricks"
         ],
         target: ['es2017'],
+        loader: { '.png': 'file' },
     });
 }
 

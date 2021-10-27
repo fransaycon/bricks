@@ -17,11 +17,12 @@ const generateRenderScript =  async (pageDataFileName: string, appName: string, 
     const htmlScript = `
 import App from "./${appName}_app"
 import pageData from "../pages_data/${pageDataFileName}";
+import routeData from "../pages_data/routes.json"
 import { renderHtml, FINAL_BUILD_PATH } from "@franreysaycon/bricks"
 import fs from "fs-extra"
 import path from "path"
 
-fs.writeFile(path.join(process.cwd(), FINAL_BUILD_PATH, "${fileName}.html"), renderHtml(App, "js/${clientBundle}", pageData))
+fs.writeFile(path.join(process.cwd(), FINAL_BUILD_PATH, "${fileName}.html"), renderHtml(App, "js/${clientBundle}", pageData, routeData))
 console.log("Generated ${fileName}.html")
 `
     await fs.writeFile(entryPoint, htmlScript)
