@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import { BricksContext, Head, styled } from "@franreysaycon/bricks"
+import reactLogo from "./images/logo.png"
 
 const Container = styled.div`
     align-items: center;
@@ -15,29 +16,15 @@ const Container = styled.div`
     }
 `
 
-const HiddenContainer = styled.div`
-    width: 300px;
-    height: 100px;
-    background-color: blue;
-`
-
 const Homepage = () => {
     const bricks = useContext(BricksContext)
-    const [boxes, addBox] = useState([])
-
-    useEffect(() => {
-        const interval = setInterval(() => addBox(b => [...b, 1]), 2000)
-        return () => {
-            clearInterval(interval)
-        }
-    }, [])
 
     return (
         <Container>
             <Head>
                 <title>{bricks?.matterData.meta.title}</title>
             </Head>
-            {boxes.map((_, i) => <HiddenContainer key={i} /> )}
+            <img src={reactLogo} />
         </Container>
     )
 }
