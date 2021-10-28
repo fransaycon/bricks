@@ -8,6 +8,7 @@ export {
 
 export {
     DOCUMENT_ID,
+    BUILD_SRC,
 } from "./core/constants"
 
 export {

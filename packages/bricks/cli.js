@@ -4,6 +4,7 @@ const yargs = require('yargs')
 const liveServer = require('live-server');
 const { createBuild, readConfiguration } = require('./dist/cjs');
 const path = require("path")
+const fs = require("fs-extra")
 const chokidar = require('chokidar');
 
 const { argv } = yargs
@@ -20,10 +21,33 @@ const { argv } = yargs
   .demandCommand(1)
   .help();
 
-const buildBricks = () => {
-  readConfiguration().then(config => {
-    createBuild(config)
-  })
+
+const processImages = async (config) => {
+  const imagemin = await import("imagemin")
+  const imageminPngQuant = await import("imagemin-pngquant")
+
+  const buildDir = config.buildPath
+
+  const buildAssets = fs.readdirSync(path.join(buildDir, BUILD_SRC))
+  const imagePaths = buildAssets.filter(ba => path.extname(ba) === ".png").map(img => path.join(buildDir, BUILD_SRC, img))
+
+  imagemin(imagePaths, {
+      destination: path.join(buildDir, BUILD_SRC),
+      plugins: [
+          imageminPngQuant({
+          quality: [0.5, 0.6]
+        })
+      ]
+  });
+}
+
+const buildBricks = async () => {
+  const config = await readConfiguration()
+  await createBuild(config)
+  
+  if(process.env.NODE_ENV === "production"){
+    processImages(config)
+  }
 }
 
 switch (argv._[0]) {

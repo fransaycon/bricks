@@ -7,7 +7,6 @@ import buildJSBundles from "./buildJSBundles";
 import buildRenderScripts from "./buildRenderScripts";
 import { BricksConfiguration } from "./readConfiguration";
 
-
 const cleanAndEnsure = async (dir: string): Promise<void> => {
     const fs = await import("fs-extra")
 
@@ -19,19 +18,18 @@ const createBuild = async (config: BricksConfiguration): Promise<void> => {
     const fs = await import("fs-extra")
     const path = await import("path")
 
-    console.log(config)
-
     try {
         const filePaths = await fs.readdir(path.join(process.cwd(), PAGES_DIR))
-        console.log("BREAKPOINT 1")
+
         // Directory of pre-built artifact directory
         const artifactDir = path.join(process.cwd(), config.artifactPath)
         await cleanAndEnsure(artifactDir)
-        console.log("BREAKPOINT 2")
 
         // Create routes.json for route context
-        await fs.writeJSON(path.join(artifactDir, "routes.json"), filePaths)
-        console.log("BREAKPOINT 3")
+        await fs.writeJSON(
+            path.join(artifactDir, "routes.json"), 
+            filePaths.map(fp => fp.split('.')[0]).filter(fn => fn !== "index")
+        )
 
         // Scan all markdown and process
         let markdownArr = await Promise.all(filePaths.map(async fp => {
@@ -40,7 +38,6 @@ const createBuild = async (config: BricksConfiguration): Promise<void> => {
                 artifactDir
             )
         }))
-        console.log("BREAKPOINT 4")
 
         // Create React apps based on markdown metadata
         let jsBundles = await Promise.all(markdownArr.map(async ({ pageDataFile, component }) => {
@@ -50,16 +47,13 @@ const createBuild = async (config: BricksConfiguration): Promise<void> => {
                 artifactDir,
             )
         }))
-        console.log("BREAKPOINT 5")
 
         // Directory of built files
         const buildDir = path.join(process.cwd(), config.buildPath)
         await cleanAndEnsure(buildDir)
-        console.log("BREAKPOINT 6")
 
         // Build all generated react apps
-        let manifest = await buildJSBundles(jsBundles, buildDir, config)
-        console.log("BREAKPOINT 7")
+        let manifest = await buildJSBundles(jsBundles, buildDir)
 
         // Generate all render scripts
         let renderScripts = await Promise.all(markdownArr.map(async ({ pageDataFile, component }) => {
@@ -71,9 +65,8 @@ const createBuild = async (config: BricksConfiguration): Promise<void> => {
                 config
             )
         }))
-        console.log("BREAKPOINT 8")
 
-        await buildRenderScripts(renderScripts, artifactDir, config)
+        await buildRenderScripts(renderScripts, artifactDir)
         await runRenderScripts(artifactDir)
     }
     catch(error){

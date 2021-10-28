@@ -1,4 +1,3 @@
 {
-    "buildPath": "dist",
-    "imageSrc": "public"
+    "buildPath": "dist"
 }

@@ -1,4 +1,4 @@
-import { ARTIFACT_JS_SRC } from "./constants"
+import { ARTIFACT_JS_SRC, BUILD_SRC } from "./constants"
 import { BricksConfiguration } from "./readConfiguration"
 
 const generateRenderScript =  async (
@@ -26,7 +26,7 @@ import { renderHtml } from "@franreysaycon/bricks"
 import fs from "fs-extra"
 import path from "path"
 
-fs.writeFile(path.join(process.cwd(),"${config.buildPath}", "${fileName}.html"), renderHtml(App, "js/${clientBundle}", pageData, routeData))
+fs.writeFile(path.join(process.cwd(),"${config.buildPath}", "${fileName}.html"), renderHtml(App, "${BUILD_SRC}/${clientBundle}", pageData, routeData))
 console.log("Generated ${fileName}.html")
 `
     await fs.writeFile(entryPoint, htmlScript)

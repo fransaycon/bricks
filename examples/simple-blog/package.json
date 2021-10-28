@@ -5,13 +5,17 @@
   "license": "MIT",
   "scripts": {
     "build": "bricks build",
-    "start": "bricks start"
+    "start": "bricks build && bricks start"
   },
   "dependencies": {
     "@franreysaycon/bricks": "1.0.0",
-    "live-server": "^1.2.1",
     "react": "^17.0.2",
     "react-markdown": "^7.0.1",
     "styled-components": "^5.3.3"
+  },
+  "devDependencies": {
+    "imagemin": "^8.0.1",
+    "imagemin-pngquant": "^9.0.2",
+    "live-server": "^1.2.1"
   }
 }

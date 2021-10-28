@@ -25,8 +25,9 @@ import React from "react";
 import { DOCUMENT_ID } from "@franreysaycon/bricks";
 import App from "./${appName}_app"
 import pageData from "../pages_data/${pageDataFileName}";
+import routesData from "../routes.json"
 
-ReactDOM.hydrate(<App pageData={pageData} />, document.getElementById(DOCUMENT_ID));
+ReactDOM.hydrate(<App pageData={pageData} routesData={routesData} />, document.getElementById(DOCUMENT_ID));
 `
 
     const fileName = pageDataFileName.split(".")[0]

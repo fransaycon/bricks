@@ -1,13 +1,11 @@
 const defaultConfig = {
     buildPath: "out",
     artifactPath: ".artifact",
-    imageSrc: "img",
 }
 
 export interface BricksConfiguration {
     buildPath: string;
     artifactPath: string;
-    imageSrc: string;
 }
 
 const readConfiguration = async (): Promise<BricksConfiguration> => {
