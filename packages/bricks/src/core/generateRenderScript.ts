@@ -1,28 +1,32 @@
-import { ARTIFACT_JS_PATH, FINAL_JS_PATH, MANIFEST_KEY } from "./constants"
+import { ARTIFACT_JS_SRC } from "./constants"
+import { BricksConfiguration } from "./readConfiguration"
 
-const generateRenderScript =  async (pageDataFileName: string, appName: string, buildDir: string, manifest: Record<string, string>): Promise<string> => {
+const generateRenderScript =  async (
+    pageDataFileName: string,
+    appName: string,
+    buildDir: string,
+    manifest: Record<string, string>,
+    config: BricksConfiguration,
+): Promise<string> => {
     const fs = await import("fs-extra")
     const path = await import("path")
     const fileName = pageDataFileName.split(".")[0]
 
-    const artifactJSPath = path.join(buildDir, ARTIFACT_JS_PATH)
+    const artifactJSPath = path.join(buildDir, ARTIFACT_JS_SRC)
     await fs.ensureDir(artifactJSPath)
 
-    const builtJSDir = path.join(buildDir, FINAL_JS_PATH)
-    await fs.ensureDir(builtJSDir)
-
-    const clientBundle = manifest[`${MANIFEST_KEY}/${fileName}.jsx`]
+    const clientBundle = manifest[`${config.artifactPath}/${ARTIFACT_JS_SRC}/${fileName}.jsx`]
     const entryPoint = path.join(artifactJSPath, `${fileName}_render.jsx`)
 
     const htmlScript = `
 import App from "./${appName}_app"
 import pageData from "../pages_data/${pageDataFileName}";
-import routeData from "../pages_data/routes.json"
-import { renderHtml, FINAL_BUILD_PATH } from "@franreysaycon/bricks"
+import routeData from "../routes.json"
+import { renderHtml } from "@franreysaycon/bricks"
 import fs from "fs-extra"
 import path from "path"
 
-fs.writeFile(path.join(process.cwd(), FINAL_BUILD_PATH, "${fileName}.html"), renderHtml(App, "js/${clientBundle}", pageData, routeData))
+fs.writeFile(path.join(process.cwd(),"${config.buildPath}", "${fileName}.html"), renderHtml(App, "js/${clientBundle}", pageData, routeData))
 console.log("Generated ${fileName}.html")
 `
     await fs.writeFile(entryPoint, htmlScript)

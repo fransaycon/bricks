@@ -1,4 +1,4 @@
-import { FINAL_RENDER_SCRIPTS } from "./constants";
+import { ARTIFACT_SCRIPTS_SRC } from "./constants"
 
 const runRenderScripts = async (buildDir: string): Promise<void> => {
     // @ts-ignore
@@ -6,7 +6,7 @@ const runRenderScripts = async (buildDir: string): Promise<void> => {
     const path = await import("path")
     const fs = await import("fs-extra")
 
-    const scriptsDir = path.join(buildDir, FINAL_RENDER_SCRIPTS)
+    const scriptsDir = path.join(buildDir, ARTIFACT_SCRIPTS_SRC)
 
     let scripts = await fs.readdir(scriptsDir)
     scripts = scripts.filter(s => s.split(".")[1] === "js")

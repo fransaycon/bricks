@@ -1,14 +1,15 @@
-import { FINAL_JS_PATH } from "./constants"
+import { ARTIFACT_SCRIPTS_SRC } from "./constants"
+import { BricksConfiguration } from "./readConfiguration"
 
-const buildRenderScripts = async (jsRenderScripts: string[], buildDir: string): Promise<void> => {
+const buildRenderScripts = async (jsRenderScripts: string[], buildDir: string, config: BricksConfiguration): Promise<void> => {
     const esbuild = await import("esbuild")
     const path = await import("path")
-    const builtJSDir = path.join(buildDir, FINAL_JS_PATH)
+    const scriptsDir = path.join(buildDir, ARTIFACT_SCRIPTS_SRC)
 
     esbuild.buildSync({
         entryPoints: jsRenderScripts,
         bundle: true,
-        outdir: `${builtJSDir}/scripts`,
+        outdir: scriptsDir,
         minify: true,
         sourcemap: false,
         format: "cjs",
@@ -25,6 +26,7 @@ const buildRenderScripts = async (jsRenderScripts: string[], buildDir: string): 
         ],
         target: ['es2017'],
         loader: { '.png': 'file' },
+        publicPath: config.imageSrc,
     });
 }
 

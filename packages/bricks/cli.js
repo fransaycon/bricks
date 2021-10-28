@@ -2,7 +2,7 @@
 
 const yargs = require('yargs')
 const liveServer = require('live-server');
-const { createBuild } = require('./dist/cjs');
+const { createBuild, readConfiguration } = require('./dist/cjs');
 const path = require("path")
 const chokidar = require('chokidar');
 
@@ -21,7 +21,9 @@ const { argv } = yargs
   .help();
 
 const buildBricks = () => {
-  createBuild()
+  readConfiguration().then(config => {
+    createBuild(config)
+  })
 }
 
 switch (argv._[0]) {

@@ -1,19 +1,19 @@
-import { ARTIFACT_JS_PATH } from "./constants"
+import { ARTIFACT_JS_SRC, BRICKS_DIR } from "./constants"
 
 const generateScript =  async (pageDataFileName: string, appName: string, buildDir: string): Promise<string> => {
     const fs = await import("fs-extra")
     const path = await import("path")
 
-    const artifactJSPath = path.join(buildDir, ARTIFACT_JS_PATH)
+    const artifactJSPath = path.join(buildDir, ARTIFACT_JS_SRC)
     await fs.ensureDir(artifactJSPath)
 
     const appScript = `
 import React from "react"
 import { App } from "@franreysaycon/bricks";
-import Component from "./components/${appName}";
+import Component from "../../${BRICKS_DIR}/${appName}";
 
 export default ({ pageData, routesData }) => (
-    <App Component={Component} pageData={pageData} />
+    <App Component={Component} pageData={pageData} routesData={routesData} />
 );
 `
 

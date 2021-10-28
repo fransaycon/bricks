@@ -1,4 +1,4 @@
-import { ARTIFACT_PAGES_DATA_PATH } from "./constants"
+import { ARTIFACT_PAGES_DATA_SRC } from "./constants"
 
 interface ProcessedMarkdownT {
     pageDataFile: string;
@@ -13,7 +13,7 @@ const processMarkdown = async (markdownPath: string, buildDir: string): Promise<
     const fileContents = await fs.readFile(markdownPath, 'utf8')
     const { data, content } = matter.default(fileContents)
 
-    const artifactMarkdownPath = path.join(buildDir, ARTIFACT_PAGES_DATA_PATH)
+    const artifactMarkdownPath = path.join(buildDir, ARTIFACT_PAGES_DATA_SRC)
     await fs.ensureDir(artifactMarkdownPath)
 
     const fileName = path.basename(markdownPath).split(".")[0]

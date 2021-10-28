@@ -1,12 +1,13 @@
-import { FINAL_JS_PATH } from "./constants"
+import { BUILD_JS_SRC } from "./constants"
+import { BricksConfiguration } from "./readConfiguration"
 
-const buildJSBundles = async (jsScripts: string[], buildDir: string): Promise<Record<string, string>> => {
+const buildJSBundles = async (jsScripts: string[], buildDir: string, config: BricksConfiguration): Promise<Record<string, string>> => {
     const createManifest = await import("esbuild-plugin-manifest")
     const fs = await import("fs-extra")
     const path = await import("path")
     const esbuild = await import ("esbuild")
 
-    const builtJSDir = path.join(buildDir, FINAL_JS_PATH)
+    const builtJSDir = path.join(buildDir, BUILD_JS_SRC)
 
     await esbuild.build({
         entryPoints: jsScripts,
@@ -17,12 +18,13 @@ const buildJSBundles = async (jsScripts: string[], buildDir: string): Promise<Re
         splitting: true,
         format: "esm",
         platform: 'browser',
-        external: [...await (await import("module")).builtinModules, path.resolve(path.join(process.cwd(), "bricks", "images", "*"))],
+        external: [...await (await import("module")).builtinModules],
         plugins: [createManifest.default({
             shortNames: "output",
         })],
         target: ['es2017'],
-        loader: {".png": "file"}
+        loader: {".png": "file"},
+        publicPath: config.imageSrc,
     });
     const manifest = await fs.readJSON(path.join(builtJSDir, "manifest.json"))
 

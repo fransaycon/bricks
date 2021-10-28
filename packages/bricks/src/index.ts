@@ -3,8 +3,11 @@ export {
 } from "./core/createBuild"
 
 export {
+    default as readConfiguration
+} from "./core/readConfiguration"
+
+export {
     DOCUMENT_ID,
-    FINAL_BUILD_PATH
 } from "./core/constants"
 
 export {
