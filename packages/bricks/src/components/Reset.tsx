@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
- 
+
 const Reset = createGlobalStyle`
   body {
     margin: 0;
@@ -8,5 +8,5 @@ const Reset = createGlobalStyle`
     font-family: Open-Sans, Helvetica, Sans-Serif;
   }
 `;
- 
+
 export default Reset;

@@ -1,14 +1,14 @@
-import React, { useContext } from "react"
-import { HeadContext } from "./Document"
+import React, { useContext } from 'react';
+import { HeadContext } from './Document';
 
 const Head: React.FC = ({ children }) => {
-    const context = useContext(HeadContext)
+  const context = useContext(HeadContext);
 
-    if(children){
-        context?.push(children)
-    }
+  if (children) {
+    context?.push(children);
+  }
 
-    return null
-}
+  return null;
+};
 
-export default Head
+export default Head;
