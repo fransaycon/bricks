@@ -1,6 +1,6 @@
-import React, { useContext } from "react"
-import { BricksContext, Head, styled } from "@franreysaycon/bricks"
-import reactLogo from "./images/logo.png"
+import React, { useContext } from 'react';
+import { BricksContext, Head, styled } from '@franreysaycon/bricks';
+import reactLogo from './images/logo.png';
 
 const Container = styled.div`
     align-items: center;
@@ -12,23 +12,23 @@ const Container = styled.div`
     flex-direction: column;
     font-family: sans-serif;
     color: #222222;
-`
+`;
 
 const Homepage = () => {
-    const { matterData, brickRoutes } = useContext(BricksContext)
+  const { matterData, brickRoutes } = useContext(BricksContext);
 
-    return (
-        <Container>
-            <Head>
-                <title>{matterData.meta.title}</title>
-            </Head>
-            <h1>BRICKS IS AWESOME!</h1>
-            <img src={reactLogo} width={300} height={300} />
-            <ul>
-                {brickRoutes.map(route => <li key={route}><a href={`/${route}.html`}>{route}</a></li>)}
-            </ul>
-        </Container>
-    )
-}
+  return (
+    <Container>
+      <Head>
+        <title>{matterData.meta.title}</title>
+      </Head>
+      <h1>BRICKS IS AWESOME!</h1>
+      <img alt="This is a React logo" src={reactLogo} width={300} height={300} />
+      <ul>
+        {brickRoutes.map((route) => <li key={route}><a href={`/${route}.html`}>{route}</a></li>)}
+      </ul>
+    </Container>
+  );
+};
 
-export default Homepage
+export default Homepage;

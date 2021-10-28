@@ -5,7 +5,10 @@
   "main": "index.js",
   "author": "Franrey Anthony S. Saycon <franreysaycon@gmail.com>",
   "license": "MIT",
-  "workspaces": ["packages/*", "examples/*"],
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "lerna run clean",
@@ -13,6 +16,7 @@
     "lerna": "lerna"
   },
   "devDependencies": {
+    "eslint": "^8.1.0",
     "lerna": "^4.0.0"
   }
 }

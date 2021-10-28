@@ -1,6 +1,6 @@
-import React, { useContext } from "react"
-import { BricksContext, Head, styled } from "@franreysaycon/bricks"
-import ReactMarkdown from "react-markdown"
+import React, { useContext } from 'react';
+import { BricksContext, Head, styled } from '@franreysaycon/bricks';
+import ReactMarkdown from 'react-markdown';
 
 const Container = styled.div`
     align-items: center;
@@ -10,21 +10,21 @@ const Container = styled.div`
     width: 100vw;
     background-color: #E2E2E2;
     flex-direction: column;
-`
+`;
 
 const BlogPage = () => {
-    const { matterData, markdownContent } = useContext(BricksContext)
+  const { matterData, markdownContent } = useContext(BricksContext);
 
-    return (
-        <Container>
-            <Head>
-                <title>{matterData.meta.title}</title>
-            </Head>
-            <ReactMarkdown>
-                {markdownContent}
-            </ReactMarkdown>
-        </Container>
-    )
-}
+  return (
+    <Container>
+      <Head>
+        <title>{matterData.meta.title}</title>
+      </Head>
+      <ReactMarkdown>
+        {markdownContent}
+      </ReactMarkdown>
+    </Container>
+  );
+};
 
-export default BlogPage
+export default BlogPage;
