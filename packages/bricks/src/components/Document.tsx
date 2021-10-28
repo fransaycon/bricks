@@ -14,8 +14,8 @@ interface DocumentContextT {
     css: ReactNode[];
 }
 
-export const HeadContext = createContext<HeadContextT | null>(null)
-export const DocumentContext = createContext<DocumentContextT | null>(null)
+export const HeadContext = /* @__PURE__ */ createContext<HeadContextT | null>(null)
+export const DocumentContext = /* @__PURE__ */ createContext<DocumentContextT | null>(null)
 
 const Document = (): ReactElement => { 
     const document = useContext(DocumentContext)
