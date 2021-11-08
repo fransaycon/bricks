@@ -9,12 +9,12 @@ Node v14+
 ```
 
 To install everything, (in the root directory)
-```
+```sh
 yarn bootstrap
-``
+```
 
 To build, (in the root directory)
-```
+```sh
 yarn build
 ```
 
